@@ -8,11 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserExistsValidator implements TaskValidator{
+public class UserExistsValidator extends AbstractTaskValidator{
     private final UserRepository userRepository;
-    private TaskValidator next;
-
-
     @Override
     public void validate(TaskRequest request) {
         if(request.userId() == null){
@@ -21,14 +18,7 @@ public class UserExistsValidator implements TaskValidator{
         if(!userRepository.existsById(request.userId())){
             throw new ValidationException("Użytkownik o ID " + request.userId() + " nie istnieje");
         }
-        if(this.next != null){
-            this.next.validate(request);
-        }
+        callNext(request);
 
-    }
-
-    @Override
-    public void setNext(TaskValidator next) {
-        this.next = next;
     }
 }
