@@ -2,8 +2,6 @@ package com.example.taskmanager.validation;
 
 import com.example.taskmanager.dto.TaskRequest;
 
-import javax.xml.validation.Validator;
-
 public abstract class AbstractTaskValidator implements TaskValidator{
     protected TaskValidator next;
 

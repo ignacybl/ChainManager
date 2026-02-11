@@ -8,9 +8,11 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface TaskMapper {
+
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "status", defaultValue = "TODO")
+    @Mapping(source = "dueTime", target = "dueDate")
     Task toEntity(TaskRequest taskRequest);
-    @Mapping(source = "user.name", target = "userName")
+    @Mapping(target = "userName", expression = "java(task.getUser() != null ? task.getUser().getName() : null)")
     TaskResponse toResponse(Task task);
 }
