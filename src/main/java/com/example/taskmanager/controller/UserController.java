@@ -4,6 +4,7 @@ import com.example.taskmanager.dto.UserRequest;
 import com.example.taskmanager.dto.UserResponse;
 import com.example.taskmanager.entity.User;
 import com.example.taskmanager.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest user) {
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRequest user) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(user));
     }
 
